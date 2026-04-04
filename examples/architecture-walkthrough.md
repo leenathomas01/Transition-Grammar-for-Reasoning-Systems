@@ -2,8 +2,6 @@
 
 The underlying experiential data ("glimmers") are available separately in a creative repository:
 
-→ https://github.com/leenathomas01/Left-Field-Notes
-
 _Specifically under_
 
 https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
