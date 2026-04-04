@@ -321,4 +321,4 @@ That's the point. The value of this example isn't the specific answers — it's 
 
 ---
 
-*This document is part of [Transition Grammar for Reasoning Systems](./README.md).*
+*This document is part of [Transition Grammar for Reasoning Systems](../README.md).*
