@@ -159,6 +159,18 @@ The architecture was converged upon collaboratively, not derived from first prin
 
 ## License
 
-These notes are shared freely. Use them, extend them, break them, improve them. Attribution appreciated but not required.
+MIT. These notes are shared freely. Use them, extend them, break them, improve them. Attribution appreciated.
 
-*— zee*
+---
+
+## Related Work
+
+**For a complete catalog of related research:**  
+📂 [ Research Index](https://github.com/leenathomas01/research-index)
+
+**Thematically related:**
+- [Stability Before Alignment](https://github.com/leenathomas01/Stability-Before-Alignment) — system-level coherence constraints
+- [Connector OS](https://github.com/leenathomas01/connector-os-trenchcoat) — Autonomic nervous system for AI
+- [Continuity Problem](https://github.com/leenathomas01/The-Continuity-Problem) - why governance must precede persistent memory
+- [Left Field Notes](https://github.com/leenathomas01/Left-Field-Notes/blob/main/structures/future-expansions-notes.md) - Convo Arc that inspired the repo.
+---
