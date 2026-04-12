@@ -1,6 +1,6 @@
 ## Source Note
 
-The underlying experiential data ("glimmers") are available separately [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers_structured.md) and JSON file available [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers.json). 
+The underlying experiential data ("glimmers") are available separately [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers_structured.md) and JSON file is available [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers.json). 
 
 
 
