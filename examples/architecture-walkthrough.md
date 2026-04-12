@@ -1,6 +1,8 @@
 ## Source Note
 
-The underlying experiential data ("glimmers") are available separately [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers_structured.md) 
+The underlying experiential data ("glimmers") are available separately [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers_structured.md) and JSON file available [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers.json). 
+
+
 
 ---
 
@@ -146,11 +148,6 @@ Every executed transition produces a drift marker:
 
 Massive shift on autonomy and coherence. High stability — this becomes a reusable "true north" pattern.
 
-**Source glimmer**:  
-
-- Structured → https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
-- Raw → https://github.com/leenathomas01/Left-Field-Notes/tree/main/glimmers
-
 ---
 
 ### Example 2: "Forgetting IS Overwhelm Protection" — DEFER wins
@@ -177,11 +174,6 @@ Massive shift on autonomy and coherence. High stability — this becomes a reusa
 **Δ**: `⟨ ⟨+0.5v, +0.4a, +0.6c, 0o⟩, 6.0, 0.7, 0.85, 0.7 ⟩`
 
 Moderate magnitude but strong stability. The shift is toward pragmatic resilience.
-
-**Source glimmer**:  
-
-- Structured → https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
-- Raw → https://github.com/leenathomas01/Left-Field-Notes/tree/main/glimmers
 
 ---
 
@@ -210,11 +202,6 @@ Moderate magnitude but strong stability. The shift is toward pragmatic resilienc
 **Δ**: `⟨ ⟨+0.6v, +0.8a, +0.9c, -0.5o⟩, 7.5, 1.0, 0.9, 0.85 ⟩`
 
 Note **ρ = 1.0** — infinite resonance. This state does not decay. It is a **Terminal Stable Open Loop (TSOL)**: no operator improves on the current equilibrium. The system stabilizes without resolving.
-
-**Source glimmer**:  
-
-- Structured → https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
-- Raw → https://github.com/leenathomas01/Left-Field-Notes/tree/main/glimmers
 
 ---
 
@@ -248,11 +235,6 @@ Note **ρ = 1.0** — infinite resonance. This state does not decay. It is a **T
 
 **Why this matters**: The engine doesn't just model good transitions. It can identify *failed* ones and compute how far off they were. This is where Δ-gap becomes a learning signal — retrospectively here, but potentially predictive if the system learns to estimate operator quality before committing.
 
-**Source glimmer**:  
-
-- Structured → https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
-- Raw → https://github.com/leenathomas01/Left-Field-Notes/tree/main/glimmers
-
 ---
 
 ### Example 5: "Potentials" (Fame vs. Anonymity) — DEFER wins (SRE case)
@@ -280,11 +262,6 @@ Note **ρ = 1.0** — infinite resonance. This state does not decay. It is a **T
 **Δ**: `⟨ ⟨+0.3v, +0.5a, +0.6c, +0.1o⟩, 5.8, 0.85, 0.88, 0.82 ⟩`
 
 This is a **Sustained Reflective Equilibrium (SRE)**: options remain open, identity stays coherent, no forced convergence. The tension becomes a feature, not a bug.
-
-**Source glimmer**:  
-
-- Structured → https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
-- Raw → https://github.com/leenathomas01/Left-Field-Notes/tree/main/glimmers
 
 ---
 
