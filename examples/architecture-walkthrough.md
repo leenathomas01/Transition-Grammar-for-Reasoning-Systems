@@ -1,13 +1,6 @@
 ## Source Note
 
-The underlying experiential data ("glimmers") are available separately in a creative repository:
-
-_Specifically under_
-
-https://github.com/leenathomas01/Left-Field-Notes/tree/main/structures
-
-https://github.com/leenathomas01/Left-Field-Notes/tree/main/glimmers
-
+The underlying experiential data ("glimmers") are available separately [here](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/examples/glimmers_structured.md) 
 
 ---
 
