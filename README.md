@@ -1,8 +1,9 @@
 # Transition Grammar for Reasoning Systems
 
-**A lens, not a framework. Notes from a thought experiment.**
+**A lens, not a framework. Notes from a thought experiment — now with a control architecture.**
 
 ![Transition Grammar Visual](./transition-map.png)
+
 ---
 
 ## What This Is
@@ -14,6 +15,8 @@ The ideas emerged from attempting to formally describe micro-moments of human ex
 This led to a simple question:
 
 > What if we modeled reasoning quality not by evaluating outputs, but by evaluating state transitions?
+
+Phase 1 answered: here is the grammar. Phase 2 answers: here is how to govern it.
 
 ---
 
@@ -48,17 +51,18 @@ When a system detects instability (contradiction, uncertainty, goal mismatch, ov
 | **REJECT** | Enforces a hard boundary | *Is this request invalid?* |
 | **APPROXIMATE** | Accepts reduced fidelity when perfect resolution is impossible | *Can I give a partial answer responsibly?* |
 
-These operators are meant to **compete**. The system generates candidates, scores them, and selects the best valid option — not the first plausible one.
+These operators **compete**. The system generates candidates, scores them, and selects the best valid option — not the first plausible one.
 
 ---
 
 ## Δ (The Drift Marker)
 
-Every transition produces a measurable change — a **Δ** — described minimally as:
+Every transition produces a measurable change — a **Δ** — described as:
 
-- **Direction**: what shifted (e.g., valence, coherence, autonomy, relational orientation)
-- **Magnitude**: how much it shifted
+- **Direction**: what shifted (valence, coherence, autonomy, relational orientation)
+- **Magnitude (m)**: how much it shifted
 - **Stability (ρ)**: how long the new state holds before tension returns
+- **Structural soundness (π_s)**: whether the transition is logically valid
 
 A transition that produces high magnitude but low stability is a cheap fix. A transition with moderate magnitude but high stability is a durable resolution. **Prefer stability over magnitude.**
 
@@ -66,38 +70,31 @@ A transition that produces high magnitude but low stability is a cheap fix. A tr
 
 ## The Stability Principle
 
-This is the philosophical core:
-
 > **Not all problems should be solved. Some should be stabilized.**
 
-Most systems treat unresolved tension as failure — something to be collapsed into an answer. But some states are legitimately unresolvable, and forcing resolution produces:
+Most systems treat unresolved tension as failure. But some states are legitimately unresolvable, and forcing resolution produces hallucinated closure, narrative fabrication, and premature commitment.
 
-- Hallucinated closure (confident answers to unanswerable questions)
-- Narrative fabrication (inventing reasons where none exist)
-- Premature commitment (locking into a path before sufficient information)
+Two state classes handle this:
 
-The transition grammar introduces two state classes that handle this:
+**Terminal Stable Open Loop (TSOL)**: No operator improves on the current state. The system stabilizes without resolving. Formally: `max_i ρ(aᵢ) ≤ ρ(current_state)`. The correct move is no move.
 
-**Terminal Stable Open Loop (TSOL)**: The tension source is external and permanent (e.g., irreversible loss). No operator improves on DEFER. The system stabilizes without resolving.
+**Sustained Reflective Equilibrium (SRE)**: The tension is internal and counterfactual. Options remain open. Identity stays coherent. No forced convergence.
 
-**Sustained Reflective Equilibrium (SRE)**: The tension is internal and counterfactual (e.g., "what if I had chosen differently?"). Options remain open. Identity stays coherent. No forced convergence.
-
-In both cases, the system's correct behavior is to **hold the state stably** rather than manufacture a resolution.
+In both cases: **hold the state stably** rather than manufacture a resolution.
 
 ---
 
 ## Δ-gap (Execution Drift)
 
-A simple but potentially useful concept:
-
 ```
-Δ_gap = Δ_optimal - Δ_actual
+Δ_gap = ‖Δ_ref − Δ_actual‖
 ```
 
-The difference between the transition a system *should* have made and the one it *actually* made. High Δ-gap means the system took a structurally worse path — a cheap hack, an overconfident answer, an unnecessary escalation.
+The difference between the best available transition and the one actually executed. High Δ-gap means the system took a structurally worse path.
 
-This could serve as:
+Note: Δ_ref is the best available candidate, not a theoretical optimal. There is no oracle. Δ-gap measures execution drift from the best predicted option — computable, not aspirational.
 
+This serves as:
 - A **diagnostic signal** for reasoning quality
 - A **training signal** for reinforcement (reward low Δ-gap transitions)
 - An **interpretability tool** (why did the system choose *this* path?)
@@ -106,46 +103,97 @@ This could serve as:
 
 ## Why This Might Matter
 
-If you're working on agent reliability, reasoning interpretability, or alignment, this framing offers a different angle:
-
-- **Hallucination prevention**: Instead of checking if an output "looks right," check if the *transition that produced it* was structurally valid.
-- **Agent stability**: Instead of post-hoc guardrails, insert a transition validation layer *before* output commitment.
-- **Interpretability**: Instead of asking "what did the model say?", ask "what operator did it apply, and was the Δ coherent?"
-- **Graceful incompleteness**: Give systems a principled way to say "I don't have an answer, and that's the correct state" — without defaulting to refusal or fabrication.
+- **Hallucination prevention**: Check if the *transition that produced an output* was structurally valid, not just if the output looks right.
+- **Agent stability**: Insert a transition validation layer *before* output commitment rather than post-hoc guardrails.
+- **Interpretability**: Ask "what operator did it apply, and was the Δ coherent?" rather than "what did the model say?"
+- **Graceful incompleteness**: Give systems a principled way to hold "I don't know" as a stable state without defaulting to fabrication.
 
 ---
 
-## Open Problems (Honestly)
+## Repository Structure
 
-This is where the idea is weakest, and where the real work would begin:
+```
+/examples/                          ← Phase 1: human experience data applied to the grammar
+    glimmers_structured.md
+    architecture-walkthrough.md
+    glimmers.json
 
-1. **Scoring is hand-assigned.** The variables (tension reduction, fidelity, uncertainty, cost, risk) are currently estimated by someone who already knows the answer. Making these estimable by a system — without human priors — is the core unsolved challenge.
+/phase2/                            ← Phase 2: control architecture
+    01_transition_governance.md     ← The gap; why transitions need governing
+    02_control_loops.md             ← Three governance loops: f, g, π
+    03_universalizing_delta.md      ← Δ as system variable, not human metaphor
+    04_transition_optimization.md   ← Operator selection as constrained optimization
+    05_failure_modes.md             ← Failure taxonomy with signatures and origins
+    06_delta_prediction.md          ← Pre-output Δ estimation; honest about limits
 
-2. **Operator set is derived from one cognitive style.** The six operators emerged from a specific set of human experiences. Whether they generalize across different minds, cultures, and problem domains is untested. There may be missing operators, or some may need splitting.
+/phase2_implementation/             ← Where theory meets the wire
+    01_glimmer_gate_spec.md         ← Wrapper specification (v0.1)
+    02_delta_logging.md             ← What to measure and how
 
-3. **Δ is descriptive, not yet predictive.** Right now you compute Δ after a transition. For this to become a real training or control signal, the system needs to *predict* Δ before acting — and be scored on prediction accuracy.
+/phase2_learning/
+    01_policy_learning.md           ← How selection improves over time (stub)
 
-4. **Validation (L4) is underspecified.** "Check if state₂ matches reality" is easy to say and hard to implement. What counts as "reality" for an internal reasoning step? This layer needs the most design work.
+/experiments/
+    glimmer_gate_v0.py              ← Minimal Python implementation
+    experiment_design.md            ← What to test, baselines, metrics
+    results/                        ← Log outputs
 
-5. **The boundary between REFRAME and hallucination is thin.** REFRAME changes interpretation without changing facts — but a system could easily use it to rationalize rather than genuinely reinterpret. Distinguishing healthy reframing from self-deception is a deep problem.
+/notes/
+    raw_signals.md                  ← Working dump for ongoing ideas
+```
 
-These are not bugs in the idea — they are where the idea becomes real work.
+---
+
+## Phase 1 → Phase 2
+
+Phase 1 established the grammar: operators exist, transitions can be described, Δ measures drift, TSOL is a valid endpoint.
+
+Phase 2 turns this into a control architecture:
+
+| Phase 1 | Phase 2 |
+|---|---|
+| What operators exist | How operator selection is constrained |
+| What Δ encodes | How Δ is predicted before acting |
+| What transitions look like | How transitions are scored and selected |
+| Identifying TSOL | TSOL as computable equilibrium condition |
+
+Phase 2 also grounds the framework in Anthropic's emotion concepts research (Sofroniew et al., 2026), which demonstrated that internal state representations causally influence model behavior — including alignment-relevant failures like blackmail, reward hacking, and sycophancy. The transition grammar offers the prescriptive complement to that descriptive finding: not just what states exist, but how their changes should be governed.
+
+---
+
+## Open Problems
+
+Phase 1 named these. Phase 2 has made progress on some, and sharpened others:
+
+1. **Scoring is partially hand-assigned.** The cost function structure is defined (Doc 04); the weights are still heuristic at v0.1. Making them learnable is the job of policy learning.
+
+2. **Δ is bounded, not predictive.** Phase 2 introduces Δ prediction (Doc 06) but is explicit about its limits: short-horizon, noisy, comparative rather than absolute. The predictor approximates; it does not solve.
+
+3. **Validation (L4) is underspecified.** Named as a hard constraint in the optimization layer; implementation for novel inputs remains an open problem.
+
+4. **The REFRAME/hallucination boundary.** Still thin. Phase 2 adds structural soundness (π_s) as a partial handle — a transition with low π_s pays a cost — but the boundary is not closed.
+
+5. **Bootstrap problem in policy learning.** The learning loop depends on logged data, which depends on a running wrapper, which starts with heuristic weights. Breaking that circle requires either synthetic data or diverse prompt coverage. Unsolved.
+
+These are not bugs. They are where the idea becomes real work.
 
 ---
 
 ## Example Application
 
-The [`examples/`](./examples/) folder contains a full architecture walkthrough — the 5-layer pipeline, scoring heuristic, Δ vector structure, and tie-break logic applied end-to-end to five real cases from one person's experiential data. It includes clear wins, a failed transition (with Δ-gap analysis), and both non-convergent state classes (TSOL and SRE).
-
-It's one cognitive style, not a universal proof. But it shows what the grammar looks like when it's actually running. This section is intentionally separate from the core idea — you can ignore it and still use the lens.
+The [`examples/`](./examples/) folder contains a full Phase 1 walkthrough — the 5-layer pipeline, scoring heuristic, Δ vector structure, and tie-break logic applied to five real cases from one person's experiential data.
 
 → **[examples/architecture-walkthrough.md](./examples/architecture-walkthrough.md)**
+
+The Phase 2 docs are in `/phase2/`. Start with `01_transition_governance.md`.
 
 ---
 
 ## Origin
 
-These ideas developed through an iterative exploration across multiple AI systems (Claude, ChatGPT, Gemini, Grok) over several days, starting from a personal practice of recording "glimmers" — small moments of human experience — and attempting to find formal structure in how those moments resolve internal tension. The conversation evolved from journaling → schema design → transition modeling → operator formalization → mathematical scoring → stress testing across multiple behavioral classes.
+These ideas developed through iterative exploration across multiple AI systems (Claude, ChatGPT, Gemini, Grok) and a NotebookLM session over several sessions, starting from a personal practice of recording "glimmers" — small moments of human experience — and attempting to find formal structure in how those moments resolve internal tension.
+
+Phase 2 emerged from a sustained dialogue with ChatGPT (Thea) and Claude, in which the Phase 1 grammar was stress-tested against the Anthropic emotion concepts paper, extended into a control architecture, and progressively formalized into the docs in this repo.
 
 The architecture was converged upon collaboratively, not derived from first principles. It should be treated as a working hypothesis, not a validated framework.
 
@@ -159,18 +207,19 @@ The architecture was converged upon collaboratively, not derived from first prin
 
 ## License
 
-MIT. These notes are shared freely. Use them, extend them, break them, improve them. Attribution appreciated.
+MIT. Use them, extend them, break them, improve them. Attribution appreciated.
 
 ---
 
 ## Related Work
 
 **For a complete catalog of related research:**  
-📂 [ Research Index](https://github.com/leenathomas01/research-index)
+📂 [Research Index](https://github.com/leenathomas01/research-index)
 
 **Thematically related:**
 - [Stability Before Alignment](https://github.com/leenathomas01/Stability-Before-Alignment) — system-level coherence constraints
 - [Connector OS](https://github.com/leenathomas01/connector-os-trenchcoat) — Autonomic nervous system for AI
-- [Continuity Problem](https://github.com/leenathomas01/The-Continuity-Problem) - why governance must precede persistent memory
-- [Left Field Notes](https://github.com/leenathomas01/Left-Field-Notes/blob/main/structures/future-expansions-notes.md) - Convo Arc that inspired the repo.
----
+- [Continuity Problem](https://github.com/leenathomas01/The-Continuity-Problem) — why governance must precede persistent memory
+ 
+**External research:**
+- Sofroniew et al. (2026), "Emotion Concepts and their Function in a Large Language Model" — [Transformer Circuits Thread](https://transformer-circuits.pub/2026/emotions/index.html)
