@@ -389,3 +389,55 @@ It's not breaking the system yet, but it's why determinism_signal is firing on 2
 The system is still balanced, but the gap metric confirms we should track this. Next step per Thea's guidance would be to either align probe to embeddings too, or accept the asymmetry as a feature and monitor for drift.
 
 ---
+
+Implementing Thea's z_gap normalization now — you're right, raw gap thresholds will drift as the distributions shift.
+
+```python
+z_gap = (gap - mu_gap) / (sigma_gap + 1e-6)
+
+gap_regime = (
+    "aligned" if abs(z_gap) < 0.5 else
+    "probe_high" if z_gap > 0.5 else
+    "execution_high"
+)
+```
+
+This keeps the diagnostic relative to the system's own behavior, not fixed numbers.
+
+## 50-run logging structure
+
+Logging exactly what you specified:
+```python
+{
+  "gap": entropy_probe - (1 - rho_semantic),
+  "z_gap": ...,
+  "gap_regime": ...,
+  "entropy_probe": ...,
+  "rho_semantic": ...,
+  "m_var": std(m_hat),
+  "operator": ...,
+  "guards_triggered": [determinism, coherence, low_info]
+}
+```
+
+## What I'll validate
+
+1. **Gap regime → operator mapping** — the table you outlined. Probe_high should map to ACT, execution_high to REFRAME, aligned mixed.
+
+2. **Guard interaction matrix** — checking for overlap, especially determinism ∩ low_info which would mean confusing convergence with shallowness.
+
+3. **Gap vs entropy relationship** — moderate correlation expected. Flat means probe meaningless, too strong means probe dominating.
+
+4. **P(REFRAME | low_info)** — should be >0.7, otherwise the low-information guard is being overridden.
+
+The three orthogonal axes you identified are the key:
+- entropy_probe → hypothesis space
+- rho_semantic → convergence  
+- m̂ variance → information richness
+- gap → relationship between 1 and 2
+
+We're mapping this 3D latent space to 3 operators without explicit modeling — which is why the disagreement patterns stay stable.
+
+Running the 50-prompt batch now with no tuning, just characterization. Will report back with the four validation tables.
+
+---
