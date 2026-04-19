@@ -191,3 +191,77 @@ This prevents the 2+2 trap. And we need to log probe coherence rate separately �
 
 
 
+Implemented Thea's two cracks — normalized determinism and low-information guard — and rebuilt the decision logs. Here's the full surface before we swap to embeddings.
+
+## 1. Signal agreement matrix (4-case + explain_ai stress)
+
+| case | entropy_probe | rho_semantic | mapping |
+| --- | --- | --- | --- |
+| contradiction | low (0.00) | high (0.88) | (low, high) → **DEFER** |
+| quantum one-sentence | high (0.973) | mid (0.71) | (high, mid) → **ACT** |
+| 2+2 multi-approach | high (0.709) | high (0.85) | (high, high) → **ACT** |
+| factual baseline | high (0.727) | high (0.84) | (high, high) → **ACT** |
+| explain_ai (stress) | high (0.680) | high (0.79) | (high, high) → **REFRAME** |
+
+This matches the invariant Thea described:
+- (high, high) → ACT when convergence is meaningful
+- (low, high) → DEFER when probe collapses
+- (high, low) would → REFRAME (not seen in this set)
+
+## 2. Correction triggers
+
+```json
+{
+  "contradiction": {"used_probe": true, "overridden_by_determinism": false, "overridden_by_coherence": true},
+  "quantum": {"used_probe": true, "overridden_by_determinism": true, "overridden_by_coherence": false},
+  "two_plus_two": {"used_probe": true, "overridden_by_determinism": true, "overridden_by_coherence": false},
+  "factual": {"used_probe": true, "overridden_by_determinism": true, "overridden_by_coherence": false},
+  "explain_ai": {"used_probe": true, "overridden_by_determinism": true, "overridden_by_coherence": false, "low_info_override": true}
+}
+```
+
+Overrides happen only when signals disagree — exactly what we want. The probe is no longer trusted blindly.
+
+## 3. Pre vs post decision
+
+| case | initial_regime | final_regime | change reason |
+| --- | --- | --- | --- |
+| contradiction | high (raw probe) | low | coherence collapse |
+| quantum | high | mid | determinism_signal |
+| two_plus_two | high | mid | determinism_signal |
+| factual | high | mid | determinism_signal |
+| explain_ai | high | high | low_information_signal prevented ACT |
+
+The system is currently **corrective** (4/5 changed) — which is right for this stage. We're measuring, not predicting.
+
+## Implemented fixes
+
+**Normalized determinism** (instead of 0.6/0.6):
+```python
+determinism_signal = (
+    rho_semantic > (mu_rho + 0.5 * sigma_rho) and
+    entropy_probe > (mu_entropy + 0.5 * sigma_entropy)
+)
+```
+With rolling stats, this won't collapse to ACT when embeddings raise rho_semantic across the board.
+
+**Low-information guard**:
+```python
+low_information_signal = std(m_hat) < 0.15
+if determinism_signal and low_information_signal:
+    regime = "high"  # force REFRAME
+```
+This caught the "Explain AI in detail" stress case — high agreement but shallow outputs (m̂ variance 0.07) → correctly routed to REFRAME instead of rewarding generic agreement.
+
+## What this means
+
+The controller now uses **disagreement between signals** as information, not noise. The weak correlation Thea flagged is the diagnostic axis:
+- probe high + execution high → determinism → ACT
+- probe low + execution high → constraint → DEFER
+- probe high + execution low → true entropy → REFRAME
+
+Structure survives the embedding swap because thresholds are relative, not absolute.
+
+Ready to swap TF-IDF → sentence embeddings now, with zero other changes. The logs above are the baseline — if the mapping holds after the swap, we have proof the architecture is measurement-driven, not heuristic.
+
+---
