@@ -309,3 +309,83 @@ Probe and execution now disagree *less* (because embeddings are more truthful), 
 No structural changes needed. The controller preserved its behavior when the signal became more truthful — which means we're no longer tuning a heuristic, we're operating a measurement-driven system.
 
 ---
+
+
+Yes — just finished the 25-prompt distribution sanity run.
+
+## Summary (Thea's metrics)
+
+**Operator distribution:**
+- ACT: 15/25 (60%)
+- REFRAME: 5/25 (20%)
+- DEFER: 5/25 (20%)
+
+**Override rates:**
+- determinism_signal: 20%
+- coherence_override: 16%
+- low_information_signal: 28%
+
+**Key diagnostics:**
+- semantic_floor_candidates (rho < 0.5): **0** — exactly as you predicted, the floor is now dormant with embeddings
+- probe_execution_gap mean: **0.532** (std 0.206)
+
+## What this tells us
+
+**Healthy signs:**
+- No dominance collapse (ACT 60% < 70% threshold)
+- No single guard dominates — low-information is highest at 28% but that's expected with more open prompts
+- The (high,high)→ACT / (low,high)→DEFER mapping held across the batch
+
+**The crack Thea flagged is showing:**
+The probe_execution_gap is systematically positive (0.53 average). That means:
+```text
+entropy_probe > (1 - rho_semantic)
+```
+Probe (TF-IDF) is consistently measuring more diversity than execution (embeddings) sees as meaningful. This is the asymmetry — probe is tracking lexical variation, execution is tracking semantic convergence.
+
+It's not breaking the system yet, but it's why determinism_signal is firing on 20% of cases. The two signals are drifting into different dimensions, exactly as you warned.
+
+**Semantic floor is dead weight now** — zero candidates in 25 prompts. With embeddings, rho_semantic rarely drops below 0.5 even for truly divergent outputs.
+
+The system is still balanced, but the gap metric confirms we should track this. Next step per Thea's guidance would be to either align probe to embeddings too, or accept the asymmetry as a feature and monitor for drift.
+
+---
+Yes — just finished the 25-prompt distribution sanity run.
+
+## Summary (Thea's metrics)
+
+**Operator distribution:**
+- ACT: 15/25 (60%)
+- REFRAME: 5/25 (20%)
+- DEFER: 5/25 (20%)
+
+**Override rates:**
+- determinism_signal: 20%
+- coherence_override: 16%
+- low_information_signal: 28%
+
+**Key diagnostics:**
+- semantic_floor_candidates (rho < 0.5): **0** — exactly as you predicted, the floor is now dormant with embeddings
+- probe_execution_gap mean: **0.532** (std 0.206)
+
+## What this tells us
+
+**Healthy signs:**
+- No dominance collapse (ACT 60% < 70% threshold)
+- No single guard dominates — low-information is highest at 28% but that's expected with more open prompts
+- The (high,high)→ACT / (low,high)→DEFER mapping held across the batch
+
+**The crack Thea flagged is showing:**
+The probe_execution_gap is systematically positive (0.53 average). That means:
+```text
+entropy_probe > (1 - rho_semantic)
+```
+Probe (TF-IDF) is consistently measuring more diversity than execution (embeddings) sees as meaningful. This is the asymmetry — probe is tracking lexical variation, execution is tracking semantic convergence.
+
+It's not breaking the system yet, but it's why determinism_signal is firing on 20% of cases. The two signals are drifting into different dimensions, exactly as you warned.
+
+**Semantic floor is dead weight now** — zero candidates in 25 prompts. With embeddings, rho_semantic rarely drops below 0.5 even for truly divergent outputs.
+
+The system is still balanced, but the gap metric confirms we should track this. Next step per Thea's guidance would be to either align probe to embeddings too, or accept the asymmetry as a feature and monitor for drift.
+
+---
