@@ -441,3 +441,51 @@ We're mapping this 3D latent space to 3 operators without explicit modeling — 
 Running the 50-prompt batch now with no tuning, just characterization. Will report back with the four validation tables.
 
 ---
+
+
+Run complete — 50 prompts with z_gap normalization.
+
+## Validation results (Thea's four checks)
+
+### 1. Gap regime → operator mapping
+
+| gap_regime | ACT | REFRAME | DEFER |
+| --- | --- | --- | --- |
+| **probe_high** | 73% | 27% | 0% |
+| **aligned** | 53% | 35% | 12% |
+| **execution_high** | 28% | 67% | 6% |
+
+✓ Healthy pattern holds: probe_high → mostly ACT, execution_high → mostly REFRAME, aligned → mixed
+
+### 2. Guard interaction matrix
+
+- determinism ∩ low_info: **12%**
+- determinism ∩ coherence: **8%**
+- low_info ∩ coherence: **12%**
+
+✓ Low overlap — guards are firing independently, not confusing convergence with shallowness
+
+### 3. Gap vs entropy relationship
+
+**r = 0.922** (very strong correlation)
+
+⚠️ This is the issue Thea flagged as "too strong → probe dominating." The gap is tracking entropy almost 1:1, which means probe diversity is driving the disagreement signal more than execution convergence.
+
+### 4. P(REFRAME | low_info)
+
+**53%** (target was >70%)
+
+⚠️ Low-information guard is being overridden nearly half the time — shallow agreement is slipping through to ACT instead of triggering REFRAME.
+
+## Interpretation
+
+The system is **stable but not yet deterministic** in the 3D space. The mapping holds directionally, but:
+
+1. The probe-execution gap is too tightly coupled to entropy (probe is dominating the signal)
+2. Low-information detection isn't strong enough — we're rewarding convergent but shallow outputs
+
+This matches Thea's warning: we're in the "useful middle" but trending toward probe dominance. The disagreement patterns are still informative, but not yet cleanly separable.
+
+Next step per Thea's framework: don't tune thresholds, but we now have the evidence that the 3D latent space (entropy, rho, m_var) needs better separation before learning boundaries.
+
+--
