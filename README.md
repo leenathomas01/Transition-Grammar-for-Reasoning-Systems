@@ -1,6 +1,7 @@
 # Transition Grammar for Reasoning Systems
 
-**A lens, not a framework. Notes from a thought experiment — now with a control architecture.**
+**A routing system that allocates decision precision based on the structure of the solution space.**
+_A lens, not a framework. Notes from a thought experiment — now with a control architecture._
 
 ![Transition Grammar Visual](./transition-map.png)
 
