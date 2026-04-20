@@ -187,6 +187,30 @@ The [`examples/`](./examples/) folder contains a full Phase 1 walkthrough — th
 
 The Phase 2 docs are in `/phase2/`. Start with `01_transition_governance.md`.
 
+
+---
+
+## Experimental Findings (Ongoing)
+
+Recent instrumented runs of the Glimmer-Gate wrapper produced an unexpected finding: routing behavior organizes into a structured field where decision sensitivity is selectively concentrated in regions where outcome differences actually matter.
+
+Three signals drive this field — entropy (solution space size), divergence (semantic disagreement), and informativeness (m_var). Their interaction, not any single signal, determines where the system allocates routing precision.
+
+The system is most sensitive where it should be — and stable where sensitivity would be noise.
+
+→ **[experiments/decision_field/decision_field_v0_3.md](./experiments/decision_field/decision_field_v0_3.md)** — primary artifact  
+→ **[docs/concepts/decision_field.md](./docs/concepts/decision_field.md)** — stable abstraction
+
+---
+
+## Implementation
+
+The Glimmer-Gate wrapper (v0.3) implements the full pipeline: pre-action probe, dual-rho measurement, regime-based routing, and decision surface logging.
+
+→ **[experiments/harness/glimmer_gate_v0.3.py](./experiments/harness/glimmer_gate_v0.3.py)**
+
+Swap in your API client and run. See the harness README for Phase C instructions.
+
 ---
 
 ## Origin
