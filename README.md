@@ -115,33 +115,49 @@ This serves as:
 ## Repository Structure
 
 ```
-/examples/                          ← Phase 1: human experience data applied to the grammar
+/examples/                              ← Phase 1: human experience data applied to the grammar
     glimmers_structured.md
     architecture-walkthrough.md
     glimmers.json
 
-/phase2/                            ← Phase 2: control architecture
-    01_transition_governance.md     ← The gap; why transitions need governing
-    02_control_loops.md             ← Three governance loops: f, g, π
-    03_universalizing_delta.md      ← Δ as system variable, not human metaphor
-    04_transition_optimization.md   ← Operator selection as constrained optimization
-    05_failure_modes.md             ← Failure taxonomy with signatures and origins
-    06_delta_prediction.md          ← Pre-output Δ estimation; honest about limits
+/phase2/                                ← Phase 2: control architecture
+    01_transition_governance.md         ← The gap; why transitions need governing
+    02_control_loops.md                 ← Three governance loops: f, g, π
+    03_universalizing_delta.md          ← Δ as system variable, not human metaphor
+    04_transition_optimization.md       ← Operator selection as constrained optimization
+    05_failure_modes.md                 ← Failure taxonomy with signatures and origins
+    06_delta_prediction.md              ← Pre-output Δ estimation; honest about limits
 
-/phase2_implementation/             ← Where theory meets the wire
-    01_glimmer_gate_spec.md         ← Wrapper specification (v0.1)
-    02_delta_logging.md             ← What to measure and how
+/phase2_implementation/                 ← Where theory meets the wire
+    01_glimmer_gate_spec.md             ← Wrapper specification (v0.1); see experiments/harness for v0.3
+    02_delta_logging.md                 ← What to measure and how
 
 /phase2_learning/
-    01_policy_learning.md           ← How selection improves over time (stub)
+    01_policy_learning.md               ← How selection improves over time (stub)
+
+/docs/                                  ← Stable conceptual layer
+    overview.md                         ← What this system is and why it exists
+    /concepts/
+        decision_field.md               ← Routing field abstraction (no experiment numbers)
 
 /experiments/
-    glimmer_gate_v0.py              ← Minimal Python implementation
-    experiment_design.md            ← What to test, baselines, metrics
-    results/                        ← Log outputs
+    experiment_design.md                ← What to test, baselines, metrics
+
+    /decision_field/                    ← Emergent routing behavior from signal interaction
+        README.md                       ← Start here
+        decision_field_v0_3.md          ← Primary experimental artifact
+        /decision_field_assets/
+            decision_field.svg          ← Geometry diagram (orientation aid)
+            future_me_summary.md        ← 3-number anchor for fast recall
+
+    /harness/                           ← Wrapper implementations
+        glimmer_gate_v0.py              ← Original implementation
+        glimmer_gate_v0.3.py            ← Current version with probe + dual-rho
+
+    results/                            ← Log outputs
 
 /notes/
-    raw_signals.md                  ← Working dump for ongoing ideas
+    raw_signals.md                      ← Working dump for ongoing ideas
 ```
 
 ---
