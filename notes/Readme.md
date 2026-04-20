@@ -1,1 +1,7 @@
-This is working dump for ongoing ideas. not fleshed out. raw form. many may get repuroosed or flushed out
+# Notes
+
+This is working dump for ongoing ideas. 
+
+Not fleshed out - raw form captured. 
+
+Many may get repurposed or flushed out
