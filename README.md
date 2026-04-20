@@ -1,6 +1,7 @@
 # Transition Grammar for Reasoning Systems
 
 **A routing system that allocates decision precision based on the structure of the solution space.**
+
 _A lens, not a framework. Notes from a thought experiment — now with a control architecture._
 
 ![Transition Grammar Visual](./transition-map.png)
@@ -195,7 +196,7 @@ The Phase 2 docs are in `/phase2/`. Start with `01_transition_governance.md`.
 
 Recent instrumented runs of the Glimmer-Gate wrapper produced an unexpected finding: routing behavior organizes into a structured field where decision sensitivity is selectively concentrated in regions where outcome differences actually matter.
 
-Three signals drive this field — entropy (solution space size), divergence (semantic disagreement), and informativeness (m_var). Their interaction, not any single signal, determines where the system allocates routing precision.
+Three signals shape this field — entropy (solution space size), divergence (semantic disagreement), and informativeness (m_var). Their interaction, not any single signal, determines where the system allocates routing precision.
 
 The system is most sensitive where it should be — and stable where sensitivity would be noise.
 
