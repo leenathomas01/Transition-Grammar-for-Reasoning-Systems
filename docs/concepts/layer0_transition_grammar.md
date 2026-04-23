@@ -50,14 +50,14 @@ Layer 0 failure has a recognizable pattern:
 ```
 entropy_probe high      — probe sees many possible approaches
 rho_semantic high       — execution converges on the same output
-gap_regime = probe_high — probe overestimated diversity
+gap_regime = probe_high — probe detects multiple viable trajectories while execution converges on one
 ```
 
 Interpretation: output channel responded. State channel did not update.
 
 In compiler terms: **"Expected state update, got output only."**
 
-This is what the probe-execution gap measures. A systematically positive gap is not a calibration problem — it is the Layer 0 failure signature. Probe diversity is real. Execution convergence is real. The gap between them is the distance between *responding to* control and *integrating* control.
+This is what the probe-execution gap measures. A systematically positive gap is not merely a calibration problem - it is a candidate signature of Layer 0 failure. Probe diversity is real. Execution convergence is real. The gap between them is the distance between *responding to* control and *integrating* control.
 
 ---
 
