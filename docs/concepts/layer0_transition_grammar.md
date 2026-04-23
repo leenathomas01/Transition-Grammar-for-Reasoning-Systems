@@ -87,7 +87,11 @@ determinism_signal = (
 → force ACT
 ```
 
-This operationalizes the SBA State Detachment failure mode. High probe entropy says "many paths exist." High execution rho says "only one path was taken." The gap between them is the detachment.
+This operationalizes the SBA State Detachment failure mode.
+High probe entropy indicates multiple viable trajectories.
+High execution rho indicates convergence onto a single trajectory.
+
+The mismatch signals that alternative trajectories exist but are not being integrated into state.
 
 The **semantic floor**:
 
