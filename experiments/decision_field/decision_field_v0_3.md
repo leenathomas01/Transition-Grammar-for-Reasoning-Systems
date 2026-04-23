@@ -87,7 +87,7 @@ Key design decisions locked in v0.3:
 
 ## Core Observations
 
-[Decision Field](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/decision-field-for-AI-reasoning-system.png)
+![Decision Field](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/decision-field-for-AI-reasoning-system.png)
 
 *Orientation aid — not a literal map. The field is continuous and probabilistic.*
 
