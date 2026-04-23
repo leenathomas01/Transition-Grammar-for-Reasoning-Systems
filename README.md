@@ -110,6 +110,8 @@ This serves as:
 - **Interpretability**: Ask "what operator did it apply, and was the Δ coherent?" rather than "what did the model say?"
 - **Graceful incompleteness**: Give systems a principled way to hold "I don't know" as a stable state without defaulting to fabrication.
 
+_This repository also functions as **Layer 0 beneath Stability Before Alignment**, ensuring that state transitions remain causally writable before higher-level correctness constraints apply._
+
 ---
 
 ## Repository Structure
