@@ -221,6 +221,10 @@ The system is most sensitive where it should be — and stable where sensitivity
 → **[experiments/decision_field/decision_field_v0_3.md](./experiments/decision_field/decision_field_v0_3.md)** — primary artifact  
 → **[docs/concepts/decision_field.md](./docs/concepts/decision_field.md)** — stable abstraction
 
+![Decision Field](https://github.com/leenathomas01/Transition-Grammar-for-Reasoning-Systems/blob/main/decision-field-for-AI-reasoning-system.png)
+
+*Orientation aid — not a literal map. The field is continuous and probabilistic.*
+
 ---
 
 ## Implementation
