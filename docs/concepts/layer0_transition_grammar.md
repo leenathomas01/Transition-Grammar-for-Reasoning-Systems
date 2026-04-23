@@ -88,6 +88,7 @@ determinism_signal = (
 ```
 
 This operationalizes the SBA State Detachment failure mode.
+
 High probe entropy indicates multiple viable trajectories.
 High execution rho indicates convergence onto a single trajectory.
 
@@ -133,6 +134,8 @@ These are complementary, not overlapping. A system can be:
 - **Locally stable but detached**: SBA passes, TG fails
 
 Both must hold for coherent long-term behavior.
+
+TG failure precedes SBA failure - if state cannot be updated, stability constraints operate on a fixed trajectory.
 
 ---
 
