@@ -1,4 +1,4 @@
----ignore this file.. this is just raw explorations/ thoughts as it happened. finalized version of what survived will be properly fleshed out---
+---ignore this file.. this is just raw explorations/ thoughts as it happened. finalized version of what survived will be properly fleshed out and created as structured files---
 
 # Experiments Sandbox
 
