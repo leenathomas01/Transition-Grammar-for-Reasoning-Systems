@@ -1,3 +1,5 @@
+---ignore this file.. this is just raw explorations/ thoughts as it happened. finalized version of what survived will be properly fleshed out---
+
 # Experiments Sandbox
 
 nailed the root cause — and the dual-rho split makes it visible immediately.
