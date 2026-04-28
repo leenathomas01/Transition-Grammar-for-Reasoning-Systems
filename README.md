@@ -112,7 +112,7 @@ This serves as:
 
 _This repository also functions as **Layer 0 beneath [Stability Before Alignment](https://github.com/leenathomas01/Stability-Before-Alignment)**, ensuring that state transitions remain causally writable before higher-level correctness constraints apply._
 
-FURTHER READING [docs/layer-0-integration-with-sba.md](./docs/layer-0-integration-with-sba.md)
+FURTHER READING [docs/layer-0-integration-with-sba.md](./docs/layer-0-integration-with-sba.md) --> Layer 0: Why Transition Grammar Is Required
 
 ---
 
